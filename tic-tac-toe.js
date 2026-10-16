@@ -31,6 +31,16 @@ window.addEventListener("DOMContentLoaded", function () {
             }
         });
 
+        /* hover on */
+        square.addEventListener("mouseover", function () {
+            square.classList.add("hover");
+        });
+
+        /* hover off - back to normal */
+        square.addEventListener("mouseout", function () {
+            square.classList.remove("hover");
+        });
+
     });
 
 });
