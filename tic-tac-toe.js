@@ -21,6 +21,9 @@ window.addEventListener("DOMContentLoaded", function () {
     /* keeps track of the board - used to check for a winner */
     let gameState = ["", "", "", "", "", "", "", "", ""];
 
+    /* becomes true once someone wins - stops any more moves */
+    let gameOver = false;
+
     /* every way to win - numbers are the square positions 0 to 8 */
     const winningCombos = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],   /* rows */
@@ -48,6 +51,12 @@ window.addEventListener("DOMContentLoaded", function () {
 
         /* click - put x or o in the square */
         square.addEventListener("click", function () {
+
+            /* no cheating - square already taken or game is over so stop here */
+            if (gameState[index] !== "" || gameOver) {
+                return;
+            }
+
             square.textContent = currentPlayer;
             square.classList.add(currentPlayer);   /* X or O class for the colour */
             gameState[index] = currentPlayer;
@@ -56,6 +65,8 @@ window.addEventListener("DOMContentLoaded", function () {
             if (checkWinner(currentPlayer)) {
                 statusDiv.textContent = "Congratulations! " + currentPlayer + " is the Winner!";
                 statusDiv.classList.add("you-won");
+                gameOver = true;
+                return;
             }
 
             /* switch turns */
@@ -87,9 +98,10 @@ window.addEventListener("DOMContentLoaded", function () {
             square.classList.remove("X", "O");
         });
 
-        /* reset the board tracker and turn */
+        /* reset the board tracker, turn and game over */
         gameState = ["", "", "", "", "", "", "", "", ""];
         currentPlayer = "X";
+        gameOver = false;
 
         /* status back to the original message */
         statusDiv.textContent = originalMessage;
