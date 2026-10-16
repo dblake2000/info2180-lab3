@@ -9,6 +9,12 @@ window.addEventListener("DOMContentLoaded", function () {
     /* the message box above the board */
     const statusDiv = document.getElementById("status");
 
+    /* new game button */
+    const newGameBtn = document.querySelector(".btn");
+
+    /* save the starting message so new game can put it back */
+    const originalMessage = statusDiv.textContent;
+
     /* x goes first */
     let currentPlayer = "X";
 
@@ -70,6 +76,24 @@ window.addEventListener("DOMContentLoaded", function () {
             square.classList.remove("hover");
         });
 
+    });
+
+    /* new game - clear everything and start over */
+    newGameBtn.addEventListener("click", function () {
+
+        /* empty each square and take off the X / O colour classes */
+        squares.forEach(function (square) {
+            square.textContent = "";
+            square.classList.remove("X", "O");
+        });
+
+        /* reset the board tracker and turn */
+        gameState = ["", "", "", "", "", "", "", "", ""];
+        currentPlayer = "X";
+
+        /* status back to the original message */
+        statusDiv.textContent = originalMessage;
+        statusDiv.classList.remove("you-won");
     });
 
 });
