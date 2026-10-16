@@ -6,9 +6,31 @@ window.addEventListener("DOMContentLoaded", function () {
     /* all 9 divs inside the board */
     const squares = document.querySelectorAll("#board div");
 
-    /* give each div the square class */
-    squares.forEach(function (square) {
+    /* x goes first */
+    let currentPlayer = "X";
+
+    /* keeps track of the board - used later to check for a winner */
+    let gameState = ["", "", "", "", "", "", "", "", ""];
+
+    squares.forEach(function (square, index) {
+
+        /* layout the board */
         square.classList.add("square");
+
+        /* click - put x or o in the square */
+        square.addEventListener("click", function () {
+            square.textContent = currentPlayer;
+            square.classList.add(currentPlayer);   /* X or O class for the colour */
+            gameState[index] = currentPlayer;
+
+            /* switch turns */
+            if (currentPlayer === "X") {
+                currentPlayer = "O";
+            } else {
+                currentPlayer = "X";
+            }
+        });
+
     });
 
 });
